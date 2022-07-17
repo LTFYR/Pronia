@@ -20,7 +20,12 @@ namespace Pronia.DAL
                 item.SetColumnType("decimal(6,2)");
             }
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Setting>().HasIndex(b => b.Key).IsUnique();
         }
+
+        
+
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
@@ -29,5 +34,8 @@ namespace Pronia.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<Size> Sizes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<ProductTag> ProductTags { get; set; }
+        public DbSet<Setting> Settings { get; set; }
     }
 }

@@ -25,9 +25,5 @@ namespace Pronia.Controllers
             };
             return View(homeVM);
         }
-        public IActionResult ProductDetail()
-        {
-            return View();
-        }
     }
 }

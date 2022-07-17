@@ -11,8 +11,9 @@ namespace Pronia.Models
         public string SKU { get; set; }
         public string Description { get; set; }
         public int ProductInformationId { get; set; }
-        public ProductInformation ProductDetail { get; set; }
+        public ProductInformation ProductInformation { get; set; }
         public List<ProductImage> ProductImages { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
+        public List<ProductTag> ProductTags { get; set; }
     }
 }
