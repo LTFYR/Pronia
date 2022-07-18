@@ -195,17 +195,19 @@ namespace Pronia.Controllers
             return Json(basket);
         }
 
-        //public IActionResult Delete(int? id)
-        //{
-        //    List<Product> product = (List<Product>)Session["Cart"];
-        //    foreach (var item in product)
-        //    {
-        //        if (product.Product.Id == id)
-        //        {
-
-        //        }
-        //    }
-        //}
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null || id == 0) return NotFound();
+            Product product =await _context.Products.FirstOrDefaultAsync(p=>p.Id == id);
+            if(product == null) return NotFound();
+            string basketStr = HttpContext.Request.Cookies["Cart"];
+            BasketVM basketVM = JsonConvert.DeserializeObject<BasketVM>(basketStr);
+            BasketCookieItemVM current = basketVM.BasketCookieItemVMs.FirstOrDefault(i => i.Id == id);
+            basketVM.BasketCookieItemVMs.Remove(current);
+            basketStr = JsonConvert.SerializeObject(basketVM);
+            HttpContext.Response.Cookies.Append("Cart", basketStr);
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }

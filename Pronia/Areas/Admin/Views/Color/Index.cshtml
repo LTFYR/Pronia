@@ -1,0 +1,50 @@
+﻿@model List<Color>
+@{
+    ViewData["Title"] = "Index page";
+}
+
+
+<div class="main-panel">
+    <div>
+        <a class="btn btn-success" asp-area="Admin" asp-controller="Color" asp-action="CreateColor">Create a new color</a>
+    </div>
+    <div class="table-responsive pt-3">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Settings
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Color color in Model)
+                {
+                    <tr>
+                        <td>
+                            @color.Id
+                        </td>
+                        <td>
+                            @color.Name
+                        </td>
+                        <td  class="d-flex">
+                                <div>
+                                    <a asp-area="Admin" asp-controller="Color" asp-action="Edit" asp-route-id="@color.Id" class="btn btn-warning"><i class="mdi mdi-border-color"></i></a>
+                                </div>
+                                <div>
+                                    <a class="btn btn-danger" asp-area="Admin" asp-controller="Color" asp-action="Delete" asp-route-id="@color.Id"><i class="mdi mdi-delete"></i></a>
+                                </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

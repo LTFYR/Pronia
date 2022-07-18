@@ -947,7 +947,7 @@
                                 @foreach(BasketItemVM p in layoutServis.GetBasket().BasketItemVMs)
                             {
                                  <li class="minicart-product">
-                      <a class="product-item_remove" href="#"
+                      <a class="product-item_remove" asp-controller="product" asp-action="delete" asp-route-id="@p.Product.Id"
                         ><i
                           class="pe-7s-close"
                           data-tippy="Remove"

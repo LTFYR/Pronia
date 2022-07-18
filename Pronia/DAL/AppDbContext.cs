@@ -22,6 +22,9 @@ namespace Pronia.DAL
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Setting>().HasIndex(b => b.Key).IsUnique();
+            modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
+            modelBuilder.Entity<Size>().HasIndex(s => s.Name).IsUnique();
+            modelBuilder.Entity<Color>().HasIndex(c => c.Name).IsUnique();
         }
 
         

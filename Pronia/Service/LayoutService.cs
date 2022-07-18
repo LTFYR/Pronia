@@ -59,9 +59,7 @@ namespace Pronia.Service
 
         public void DeleteProduct(int id)
         {
-            var entity = _context.Products.Find(id);
-            _context.Products.Remove(entity);
-            _context.SaveChanges();
+           
         }
     }
 }
