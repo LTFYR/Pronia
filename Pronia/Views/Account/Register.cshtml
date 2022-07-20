@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RegisterVM 
+@{
     ViewData["Title"] = "Register";
 }
 
@@ -32,38 +33,38 @@
                     <div class="row">
                       <div class="col-md-6 col-12">
                         <label>First Name</label>
-                        <input a@*sp-for="Firstname"*@ placeholder="First Name" /><br />
-                        <span class="text text-danger" @*asp-validation-for="Firstname"*@></span>
+                        <input asp-for="firstName" placeholder="First Name" /><br />
+                        <span class="text text-danger" asp-validation-for="firstName"></span>
                       </div>
                       <div class="col-md-6 col-12">
                         <label>Last Name</label>
-                        <input @*asp-for="Lastname"*@  placeholder="Last Name" /><br />
-                        <span class="text text-danger" @*asp-validation-for="Lastname"*@></span>
+                        <input asp-for="lastName"  placeholder="Last Name" /><br />
+                        <span class="text text-danger" asp-validation-for="lastName"></span>
                       </div>
                       <div class="col-md-12">
                         <label>Username</label>
-                        <input @*asp-for="Username"*@ placeholder="Username" /><br />
-                        <span class="text text-danger" @*asp-validation-for="Username"*@></span>
+                        <input asp-for="username" placeholder="Username" /><br />
+                        <span class="text text-danger" asp-validation-for="username"></span>
                       </div>
                       <div class="col-md-12">
                         <label>Email Address</label>
-                        <input @*asp-for="Email"*@ placeholder="Email Address" /><br />
-                        <span class="text text-danger" @*asp-validation-for="Email"*@></span>
+                        <input asp-for="email" placeholder="Email Address" /><br />
+                        <span class="text text-danger" asp-validation-for="email"></span>
                       </div>
                       <div class="col-md-6">
                         <label>Password</label>
-                        <input @*asp-for="Password"*@ placeholder="Password" /><br />
-                        <span class="text text-danger" @*asp-validation-for="Password"*@></span>
+                        <input asp-for="Password" placeholder="Password" /><br />
+                        <span class="text text-danger" asp-validation-for="Password"></span>
                       </div>
                       <div class="col-md-6">
                         <label>Confirm Password</label>
-                        <input @*asp-for="ConfirmPassword"*@ placeholder="Confirm Password" /><br />
-                        <span class="text text-danger" @*asp-validation-for="ConfirmPassword"*@></span>
+                        <input asp-for="confirmPassword" placeholder="Confirm Password" /><br />
+                        <span class="text text-danger" asp-validation-for="confirmPassword"></span>
                       </div>
                       <div class="col-md-6">
-                        <input @*asp-for="Terms"*@  />
+                        <input asp-for="Terms"  />
                         <label>Terms</label>
-                        <span class="text text-danger" @*asp-validation-for="Terms"*@></span>
+                        <span class="text text-danger" asp-validation-for="Terms"></span>
                       </div>
                       <div class="col-12">
                         <button type="submit"

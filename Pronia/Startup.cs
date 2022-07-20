@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pronia.DAL;
+using Pronia.Models;
 using Pronia.Service;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,22 @@ namespace Pronia
             {
                 options.UseSqlServer(_configuration.GetConnectionString("Secure"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddIdentity<AppUser, IdentityRole>(option =>
+            {
+                option.User.RequireUniqueEmail = false;
+                option.User.AllowedUserNameCharacters = "qwertyuiopasdfghjklzxcvbnm1234567890_";
+
+
+                option.Password.RequiredUniqueChars = 2;
+                option.Password.RequiredLength = 8;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireDigit = true;
+                option.Password.RequireUppercase = false;
+
+                option.Lockout.MaxFailedAccessAttempts = 5;
+                option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                option.Lockout.AllowedForNewUsers = true;
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>(); 
             services.AddScoped<LayoutService>();
             services.AddHttpContextAccessor();
         }
