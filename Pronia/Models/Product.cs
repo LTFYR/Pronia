@@ -1,5 +1,7 @@
-﻿using Pronia.Models.Base;
+﻿using Microsoft.AspNetCore.Http;
+using Pronia.Models.Base;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pronia.Models
 {
@@ -15,5 +17,15 @@ namespace Pronia.Models
         public List<ProductImage> ProductImages { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<ProductTag> ProductTags { get; set; }
+
+        [NotMapped]
+        public List<int> CategoryIds { get; set; }
+
+        [NotMapped]
+        public List<IFormFile> Photos { get; set; }
+        [NotMapped]
+        public IFormFile MainFoto { get; set; }
+        [NotMapped]
+        public IFormFile HoverFoto { get; set; }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Pronia.DAL;
+using Pronia.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pronia.ViewComponents
@@ -14,7 +17,8 @@ namespace Pronia.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+            List<Setting> settings = await _context.Settings.ToListAsync();
+            return View(settings);
         }
     }
 }

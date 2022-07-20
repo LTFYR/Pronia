@@ -204,6 +204,8 @@ namespace Pronia.Controllers
             BasketVM basketVM = JsonConvert.DeserializeObject<BasketVM>(basketStr);
             BasketCookieItemVM current = basketVM.BasketCookieItemVMs.FirstOrDefault(i => i.Id == id);
             basketVM.BasketCookieItemVMs.Remove(current);
+            current.Quantity=0;
+            basketVM.TotalPrice -= product.Price;
             basketStr = JsonConvert.SerializeObject(basketVM);
             HttpContext.Response.Cookies.Append("Cart", basketStr);
             return RedirectToAction("Index", "Home");
