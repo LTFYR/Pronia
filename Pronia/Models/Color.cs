@@ -1,4 +1,5 @@
 ﻿using Pronia.Models.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Pronia.Models
@@ -7,5 +8,6 @@ namespace Pronia.Models
     {
         [Required, StringLength(maximumLength: 20)]
         public string Name { get; set; }
+        List<ProductColor> ProductColors { get; set; }
     }
 }

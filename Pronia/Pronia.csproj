@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20220715192302_createdTagRelationalTable.Designer.cs" />
     <Compile Remove="Migrations\20220715192455_createdTagRelationalTable2.cs" />
     <Compile Remove="Migrations\20220715192455_createdTagRelationalTable2.Designer.cs" />
+    <Compile Remove="Migrations\20220724144319_createdrelationbetweenAppUserBasketItemandOrder.cs" />
+    <Compile Remove="Migrations\20220724144319_createdrelationbetweenAppUserBasketItemandOrder.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

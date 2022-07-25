@@ -57,9 +57,14 @@ namespace Pronia.Service
             return null;
         }
 
-        public void DeleteProduct(int id)
-        {
-           
-        }
+        //public void DeleteProduct(int? id)
+        //{
+        //    string[] myCookies =  _http.HttpContext.Request.Cookies["Cart"];
+        //    foreach (string cookie in myCookies)
+        //    {
+        //        Response.Cookies.Delete(cookie);
+        //    }
+        //}
+
     }
 }

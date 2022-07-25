@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Pronia.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
@@ -122,6 +124,35 @@ namespace Pronia.Areas.Admin.Controllers
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            ViewBag.Info = _context.ProductInformations.ToList();
+            ViewBag.Categories = _context.Categories.ToList();
+            if (id == null || id == 0) return NotFound();
+            Product product = await _context.Products.Include(p=>p.ProductImages).Include(p=>p.ProductInformation).Include(p=>p.ProductCategories)
+                .ThenInclude(p=>p.Category)
+                .SingleOrDefaultAsync(p=>p.Id == id);
+            if(product == null) return NotFound();
+            return View(product);
+        }
+
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        [ActionName("Edit")]
+        public async Task<IActionResult> Update(int? id,Product product)
+        {
+            if(id == null || id == 0) return NotFound();
+            Product current = await _context.Products.Include(p => p.ProductImages).Include(p => p.ProductInformation).Include(p => p.ProductCategories).ThenInclude(p => p.Category).SingleOrDefaultAsync(p => p.Id == id);
+            if(current == null) return NotFound();
+            List<ProductImage> remove = current.ProductImages.Where(p => p.IsMain == false && product.ImagesId.Contains(p.Id)).ToList();
+            if (product == null) return NotFound();
+            current.ProductImages.RemoveAll(p => remove.Any(r => p.Id == r.Id));
+            
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Pronia.DAL;
 using Pronia.Models;
 using System.Collections.Generic;
@@ -57,18 +58,22 @@ namespace Pronia.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int? id, Category newcategory)
+        public async Task<IActionResult> Edit(int? id, Category newcategory)
         {
             if (id == null || id == 0) return NotFound();
             Category current = _context.Categories.FirstOrDefault(c => c.Id == id);
             if (current == null)
                 return NotFound();
-            bool dublicate = _context.Categories.Any(c => c.Name.Trim().ToLower() == newcategory.Name.Trim().ToLower());
+            bool dublicate = _context.Categories.Any(c =>c.Id!=id && c.Name.Trim().ToLower() == newcategory.Name.Trim().ToLower());
             if (dublicate)
             {
                 ModelState.AddModelError("Name", "Eyni adi tekrar daxil ede bilmezsiniz");
                 return View();
             }
+            Category existed = await _context.Categories.Include(p => p.ProductCategories).ThenInclude(p => p.Category).SingleOrDefaultAsync(p => p.Id == id);
+            if(existed == null) return NotFound();
+            List<ProductCategory> remove = current.ProductCategories.Where(p => p.Id == newcategory.Id).ToList();
+            existed.ProductCategories.RemoveAll(p=>remove.Any(r=> p.Id == r.Id));
             //current.Name = newcategory.Name;
             _context.Entry(current).CurrentValues.SetValues(newcategory);
             _context.SaveChanges();
